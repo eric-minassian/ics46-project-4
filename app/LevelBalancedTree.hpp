@@ -340,9 +340,11 @@ void LevelBalancedTree<Key, Value>::removeHelper(LBTreeNode<Key, Value> *node) {
     if (node->left != nullptr) {
       root = node->left;
       root->parent = nullptr;
-    } else {
+    } else if (node->right != nullptr) {
       root = node->right;
       root->parent = nullptr;
+    } else {
+      root = nullptr;
     }
     delete node;
     treeSize--;
