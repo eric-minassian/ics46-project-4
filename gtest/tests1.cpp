@@ -592,6 +592,12 @@ TEST(Additional, Insert1) {
   tree.insert(676, 676);
   tree.insert(698, 698);
   tree.insert(580, 580);
+
+  std::vector<int> postOrderTrav = tree.postOrder();
+  std::vector<int> ans = {31,  184, 134, 98,  315, 311, 354, 435, 348, 188, 448,
+                          580, 510, 452, 657, 698, 676, 648, 440, 763, 736, 801,
+                          874, 868, 782, 924, 972, 941, 991, 983, 887, 714};
+  EXPECT_EQ(postOrderTrav, ans);
 }
 
 TEST(Additional, Insert2) {
@@ -642,6 +648,154 @@ TEST(Additional, ConstFind1) {
   }
 }
 
+TEST(Additional, MirroredInsert1) {
+  LevelBalancedTree<int, int> tree;
+
+  tree.insert(20, 20);
+  tree.insert(21, 21);
+  tree.insert(22, 22);
+  tree.insert(29, 29);
+  tree.insert(30, 30);
+
+  std::vector<int> postOrderTrav1 = tree.postOrder();
+  std::vector<int> expectedPostOrder1 = {20, 22, 30, 29, 21};
+  EXPECT_EQ(postOrderTrav1, expectedPostOrder1);
+
+  std::vector<int> inOrderTrav1 = tree.inOrder();
+  std::vector<int> expectedInOrder1 = {20, 21, 22, 29, 30};
+  EXPECT_EQ(inOrderTrav1, expectedInOrder1);
+
+  tree.insert(24, 24);
+
+  std::vector<int> postOrderTrav2 = tree.postOrder();
+  std::vector<int> expectedPostOrder2 = {20, 21, 24, 30, 29, 22};
+  EXPECT_EQ(postOrderTrav2, expectedPostOrder2);
+
+  std::vector<int> inOrderTrav2 = tree.inOrder();
+  std::vector<int> expectedInOrder2 = {20, 21, 22, 24, 29, 30};
+  EXPECT_EQ(inOrderTrav2, expectedInOrder2);
+
+  tree.insert(32, 32);
+
+  std::vector<int> postOrderTrav3 = tree.postOrder();
+  std::vector<int> expectedPostOrder3 = {20, 21, 24, 32, 30, 29, 22};
+  EXPECT_EQ(postOrderTrav3, expectedPostOrder3);
+
+  std::vector<int> inOrderTrav3 = tree.inOrder();
+  std::vector<int> expectedInOrder3 = {20, 21, 22, 24, 29, 30, 32};
+  EXPECT_EQ(inOrderTrav3, expectedInOrder3);
+
+  tree.insert(34, 34);
+
+  std::vector<int> postOrderTrav4 = tree.postOrder();
+  std::vector<int> expectedPostOrder4 = {20, 21, 24, 30, 34, 32, 29, 22};
+  EXPECT_EQ(postOrderTrav4, expectedPostOrder4);
+
+  std::vector<int> inOrderTrav4 = tree.inOrder();
+  std::vector<int> expectedInOrder4 = {20, 21, 22, 24, 29, 30, 32, 34};
+  EXPECT_EQ(inOrderTrav4, expectedInOrder4);
+
+  tree.insert(28, 28);
+
+  std::vector<int> postOrderTrav5 = tree.postOrder();
+  std::vector<int> expectedPostOrder5 = {20, 21, 28, 24, 30, 34, 32, 29, 22};
+  EXPECT_EQ(postOrderTrav5, expectedPostOrder5);
+
+  std::vector<int> inOrderTrav5 = tree.inOrder();
+  std::vector<int> expectedInOrder5 = {20, 21, 22, 24, 28, 29, 30, 32, 34};
+  EXPECT_EQ(inOrderTrav5, expectedInOrder5);
+
+  tree.insert(26, 26);
+
+  std::vector<int> postOrderTrav6 = tree.postOrder();
+  std::vector<int> expectedPostOrder6 = {20, 21, 24, 28, 26,
+                                         30, 34, 32, 29, 22};
+  EXPECT_EQ(postOrderTrav6, expectedPostOrder6);
+
+  std::vector<int> inOrderTrav6 = tree.inOrder();
+  std::vector<int> expectedInOrder6 = {20, 21, 22, 24, 26, 28, 29, 30, 32, 34};
+  EXPECT_EQ(inOrderTrav6, expectedInOrder6);
+
+  tree.insert(33, 33);
+
+  std::vector<int> postOrderTrav7 = tree.postOrder();
+  std::vector<int> expectedPostOrder7 = {20, 21, 24, 28, 26, 22,
+                                         30, 33, 34, 32, 29};
+  EXPECT_EQ(postOrderTrav7, expectedPostOrder7);
+
+  std::vector<int> inOrderTrav7 = tree.inOrder();
+  std::vector<int> expectedInOrder7 = {20, 21, 22, 24, 26, 28,
+                                       29, 30, 32, 33, 34};
+  EXPECT_EQ(inOrderTrav7, expectedInOrder7);
+
+  tree.insert(25, 25);
+  tree.insert(27, 27);
+
+  std::vector<int> postOrderTrav8 = tree.postOrder();
+  std::vector<int> expectedPostOrder8 = {20, 21, 25, 24, 27, 28, 26,
+                                         22, 30, 33, 34, 32, 29};
+  EXPECT_EQ(postOrderTrav8, expectedPostOrder8);
+
+  std::vector<int> inOrderTrav8 = tree.inOrder();
+  std::vector<int> expectedInOrder8 = {20, 21, 22, 24, 25, 26, 27,
+                                       28, 29, 30, 32, 33, 34};
+  EXPECT_EQ(inOrderTrav8, expectedInOrder8);
+}
+
+TEST(Additional, RootTest1) {
+  LevelBalancedTree<int, int> tree;
+  tree.insert(1, 1);
+  tree.insert(2, 2);
+  tree.insert(3, 3);
+
+  tree.remove(3);
+  tree.remove(2);
+
+  std::vector<int> postOrderTrav1 = tree.postOrder();
+  std::vector<int> expectedPostOrder1 = {1};
+  EXPECT_EQ(postOrderTrav1, expectedPostOrder1);
+
+  std::vector<int> inOrderTrav1 = tree.inOrder();
+  std::vector<int> expectedInOrder1 = {1};
+  EXPECT_EQ(inOrderTrav1, expectedInOrder1);
+}
+
+TEST(Additional, RootTest2) {
+  LevelBalancedTree<int, int> tree;
+  tree.insert(1, 1);
+  tree.insert(2, 2);
+  tree.insert(3, 3);
+
+  tree.remove(2);
+  tree.remove(3);
+
+  std::vector<int> postOrderTrav1 = tree.postOrder();
+  std::vector<int> expectedPostOrder1 = {1};
+  EXPECT_EQ(postOrderTrav1, expectedPostOrder1);
+
+  std::vector<int> inOrderTrav1 = tree.inOrder();
+  std::vector<int> expectedInOrder1 = {1};
+  EXPECT_EQ(inOrderTrav1, expectedInOrder1);
+}
+
+TEST(Additional, RootTest3) {
+  LevelBalancedTree<int, int> tree;
+  tree.insert(1, 1);
+  tree.insert(2, 2);
+  tree.insert(3, 3);
+
+  tree.remove(1);
+  tree.remove(2);
+
+  std::vector<int> postOrderTrav1 = tree.postOrder();
+  std::vector<int> expectedPostOrder1 = {3};
+  EXPECT_EQ(postOrderTrav1, expectedPostOrder1);
+
+  std::vector<int> inOrderTrav1 = tree.inOrder();
+  std::vector<int> expectedInOrder1 = {3};
+  EXPECT_EQ(inOrderTrav1, expectedInOrder1);
+}
+
 TEST(Additional, InsertStressTest) {
   LevelBalancedTree<int, int> tree;
   for (int i = 0; i < 100000; i++) {
@@ -689,4 +843,82 @@ TEST(Additional, InsertStressTest) {
   }
 }
 
+TEST(Additional, BigCapacity1) {
+  LevelBalancedTree<int, int> tree;
+  for (int i = -10000000; i < 10000000; i++) {
+    tree.insert(i, i);
+  }
+
+  for (int i = -10000000; i < 10000000; i++) {
+    EXPECT_EQ(tree.find(i), i);
+  }
+
+  EXPECT_EQ(tree.size(), 20000000);
+
+  for (int i = -10000000; i < 10000000; i++) {
+    tree.remove(i);
+  }
+
+  EXPECT_EQ(tree.size(), 0);
+}
+
+TEST(Additional, StringKey) {
+  LevelBalancedTree<std::string, int> tree;
+  tree.insert("hello", 1);
+  tree.insert("world", 2);
+  tree.insert("!", 3);
+  tree.insert("this", 4);
+  tree.insert("is", 5);
+  tree.insert("a", 6);
+  tree.insert("test", 7);
+
+  EXPECT_EQ(tree.find("hello"), 1);
+  EXPECT_EQ(tree.find("world"), 2);
+  EXPECT_EQ(tree.find("!"), 3);
+
+  tree.remove("hello");
+  tree.remove("world");
+  tree.remove("!");
+
+  EXPECT_EQ(tree.size(), 4);
+  EXPECT_FALSE(tree.contains("hello"));
+  EXPECT_FALSE(tree.contains("world"));
+  EXPECT_FALSE(tree.contains("!"));
+
+  EXPECT_EQ(tree.find("this"), 4);
+}
+
+TEST(Additional, FindException1) {
+  LevelBalancedTree<int, int> tree;
+
+  for (int i = 0; i < 100; i++) {
+    tree.insert(i, i);
+  }
+
+  EXPECT_THROW(tree.find(100), ElementNotFoundException);
+
+  tree.remove(50);
+
+  EXPECT_THROW(tree.find(50), ElementNotFoundException);
+
+  tree.insert(50, 50);
+
+  EXPECT_EQ(tree.find(50), 50);
+}
+
+TEST(Additional, FindException2) {
+  LevelBalancedTree<int, int> tree;
+
+  for (int i = 0; i < 100; i++) {
+    tree.insert(i, i);
+  }
+
+  tree.remove(50);
+
+  const LevelBalancedTree<int, int> &constTree = tree;
+
+  EXPECT_THROW(constTree.find(50), ElementNotFoundException);
+  EXPECT_THROW(constTree.find(100), ElementNotFoundException);
+  EXPECT_EQ(constTree.find(21), 21);
+}
 } // namespace

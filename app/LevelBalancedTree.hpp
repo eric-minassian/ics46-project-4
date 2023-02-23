@@ -293,6 +293,7 @@ void LevelBalancedTree<Key, Value>::insert(const Key &k, const Value &v) {
   LBTreeNode<Key, Value> *cur = root;
   while (cur != nullptr) {
     if (cur->key == k) {
+      delete new_node;
       return;
     } else if (cur->key < k) {
       if (cur->right == nullptr) {
